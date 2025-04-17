@@ -2,6 +2,7 @@ name: Say Hello World!
 
 on:
   push:
+  branches:
     - main
     
 
