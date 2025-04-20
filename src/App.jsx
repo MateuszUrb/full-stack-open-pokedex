@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useMatch,
-} from 'react-router-dom'
+import { Routes, Route, useMatch } from 'react-router-dom'
 import { useApi } from './useApi'
 import LoadingSpinner from './LoadingSpinner'
 import ErrorMessage from './ErrorMessage'
@@ -37,34 +32,34 @@ const App = () => {
   let previous = null
 
   if (match && match.params) {
-    const pokemonId = pokemonList.find(
-      ({ name }) => name === match.params.name,
-    ).id
-    previous = pokemonList.find(({ id }) => id === pokemonId - 1)
-    next = pokemonList.find(({ id }) => id === pokemonId + 1)
+    const pokemon = pokemonList.find(({ name }) => name === match.params.name)
+
+    if (pokemon) {
+      const pokemonId = pokemon.id
+      previous = pokemonList.find(({ id }) => id === pokemonId - 1) || null
+      next = pokemonList.find(({ id }) => id === pokemonId + 1) || null
+    } else {
+      // eslint-disable-next-line
+      console.error("Pokemon not found");
+      previous = null
+      next = null
+    }
   }
 
   return (
-    <Router>
-      <Routes>
-        <Route
-          exact
-          path="/"
-          element={<PokemonList pokemonList={pokemonList} />}
-        />
-        <Route
-          exact
-          path="/pokemon/:name"
-          element={
-            <PokemonPage
-              pokemonList={pokemonList}
-              previous={previous}
-              next={next}
-            />
-          }
-        />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<PokemonList pokemonList={pokemonList} />} />
+      <Route
+        path="/pokemon/:name"
+        element={
+          <PokemonPage
+            pokemonList={pokemonList}
+            previous={previous}
+            next={next}
+          />
+        }
+      />
+    </Routes>
   )
 }
 
