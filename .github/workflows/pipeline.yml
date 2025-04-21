@@ -17,7 +17,7 @@ jobs:
       - name: Install Dep
         run: npm install
       - name: playwright install browsers
-        run: npx playwright install --wight-deps
+        run: npx playwright install --with-deps
       - name: Check style
         run: npm run eslint
       - name: build app
