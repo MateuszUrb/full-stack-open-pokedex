@@ -16,11 +16,21 @@ jobs:
           node-version: '20'
       - name: Install Dep
         run: npm install
+      - name: playwright install browsers
+        run: npx playwright install --wight-deps
       - name: Check style
         run: npm run eslint
       - name: build app
         run: npm run build
-      - name: test app
+      - name: test app (unit)
         run: npm run test
+      - name: run playwright e2e tests
+        run: npx playwright test
+      - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30
 
 
