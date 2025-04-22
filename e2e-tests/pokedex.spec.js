@@ -10,7 +10,7 @@ describe('Pokedex', () => {
       ),
     ).toBeVisible()
   })
-  test.only('can navigate to specific pokemon', async ({ page }) => {
+  test('can navigate to specific pokemon', async ({ page }) => {
     await page.goto('localhost:8080')
     await expect(page.getByText('ivysaur')).toBeVisible()
 
