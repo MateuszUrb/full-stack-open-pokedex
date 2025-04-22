@@ -10,4 +10,13 @@ describe('Pokedex', () => {
       ),
     ).toBeVisible()
   })
+  test.only('can navigate to specific pokemon', async ({ page }) => {
+    await page.goto('localhost:8080')
+    await expect(page.getByText('ivysaur')).toBeVisible()
+
+    await page.goto('localhost:8080/pokemon/bulbasaur')
+
+    await expect(page.getByText('bulbasaur')).toBeVisible()
+    await expect(page.getByText('Speed')).toBeVisible()
+  })
 })
