@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 5000
 
 // TODO: for deployment purposes
 app.get('/verion', (req, res) => {
-  res.send('1')
+  res.send('2')
 })
 
 app.use(express.static('dist'))
