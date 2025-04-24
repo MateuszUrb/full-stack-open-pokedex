@@ -6,9 +6,6 @@ const PORT = process.env.PORT || 5000
 
 // TODO: for deployment purposes
 app.get('/health', (req, res) => {
-  // eslint-disable-next-line
-  if (true) throw "error... ";
-
   res.send('ok')
 })
 
