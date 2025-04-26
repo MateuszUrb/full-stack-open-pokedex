@@ -1,4 +1,4 @@
-name: Deployment pipline
+name: deployment pipline
 
 on:
   push:
@@ -17,17 +17,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Install dependencies
+      - name: install dependencies
         run: npm ci
-      - name: Check style
+      - name: check style
         run: npm run eslint
       - name: build app
         run: npm run build
       - name: test app (unit)
         run: npm run test
-      - name: Install Playwright Browsers
+      - name: install playwright browsers
         run: npx playwright install --with-deps
-      - name: Run Playwright tests
+      - name: run playwright tests
         run: npx playwright test
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
@@ -35,12 +35,23 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-      - name: Trigger deployment
+      - name: trigger deployment
         if: ${{ github.event_name == 'push' }}
         uses: sws2apps/render-deployment@main 
         with:
-          serviceId: ${{ secrets.RENDER_SERVICE_ID }}
-          apiKey: ${{ secrets.RENDER_API_KEY }}
-          multipleDeployment: false 
+          serviceid: ${{ secrets.render_service_id }}
+          apikey: ${{ secrets.render_api_key }}
+          multipledeployment: false 
+  tag_release:
+    needs: [main]
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push'}}
+    steps:
+      - name: bump version and push tag
+        uses: anothrnick/github-tag-action@v1
+        env:
+          github_token: ${{ secrets.github_token }} 
+          default_bump: patch
+
 
 
