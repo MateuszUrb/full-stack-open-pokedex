@@ -46,6 +46,7 @@ jobs:
     needs: [main]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: bump version and push tag
         if: ${{ github.event_name == 'push'}}
         uses: anothrnick/github-tag-action@v1
