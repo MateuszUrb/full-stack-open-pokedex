@@ -51,7 +51,7 @@ jobs:
         uses: anothrnick/github-tag-action@v1
         env:
           github_token: ${{ secrets.github_token }} 
-          default_bump: #patch
+          default_bump: patch
 
 
 
