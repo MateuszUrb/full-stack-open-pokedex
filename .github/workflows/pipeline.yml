@@ -45,9 +45,9 @@ jobs:
   tag_release:
     needs: [main]
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push'}}
     steps:
       - name: bump version and push tag
+        if: ${{ github.event_name == 'push'}}
         uses: anothrnick/github-tag-action@v1
         env:
           github_token: ${{ secrets.github_token }} 
