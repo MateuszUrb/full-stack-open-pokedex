@@ -36,7 +36,7 @@ jobs:
           path: playwright-report/
           retention-days: 30
       - name: trigger deployment
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
         uses: sws2apps/render-deployment@main 
         with:
           serviceid: ${{ secrets.render_service_id }}
@@ -48,7 +48,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: bump version and push tag
-        if: ${{ github.event_name == 'push'}}
+        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }} 
         uses: anothrnick/github-tag-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
