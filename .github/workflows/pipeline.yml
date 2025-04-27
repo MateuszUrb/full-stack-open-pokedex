@@ -51,8 +51,9 @@ jobs:
         if: ${{ github.event_name == 'push'}}
         uses: anothrnick/github-tag-action@v1
         env:
-          github_token: ${{ secrets.github_token }} 
-          default_bump: patch
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+          INITIAL_VERSION:  0.0.0 
 
 
 
