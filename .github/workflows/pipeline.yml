@@ -53,7 +53,6 @@ jobs:
         if: |
           github.event_name == 'push' &&
           !contains(join(github.event.commits.*.message, ' '), '#skip')
-        if: ${{ github.event_name == 'push'}}
         uses: anothrnick/github-tag-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
